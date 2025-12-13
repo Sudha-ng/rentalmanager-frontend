@@ -1,0 +1,65 @@
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 0 1rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: var(--primary, #1976d2);
+}
+
+.content-column {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.page-panel {
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+  background: #fff;
+}
+
+table {
+  width: 100%;
+}
+
+th.mat-header-cell {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: var(--soft-text, #6a6d7c);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.loading-state {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  color: var(--soft-text, #6a6d7c);
+}
+
+.empty-state mat-icon {
+  font-size: 2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 auto;
+}

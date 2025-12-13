@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  --soft-text: #6a6d7c;
+  --danger: #c62828;
+  --surface: #ffffff;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  background-color: #f4f6fb;
+}
+
+mat-card {
+  border-radius: 1rem;
+  box-shadow: 0 15px 45px rgba(15, 23, 42, 0.08);
+  padding: 1.5rem;
+}

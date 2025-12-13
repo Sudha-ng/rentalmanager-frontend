@@ -1,0 +1,120 @@
+.content-column {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.page-panel {
+  position: relative;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+  background: #fff;
+}
+
+.page-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--primary, #1976d2);
+}
+
+.eyebrow {
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  margin-bottom: 0.25rem;
+  color: var(--soft-text, #6a6d7c);
+}
+
+.subtitle {
+  margin: 0.25rem 0 0;
+  color: var(--soft-text, #6a6d7c);
+}
+
+.filters-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.filters-form button {
+  height: 3.5rem;
+}
+
+.panel-divider {
+  margin: 0.5rem 0 1rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.expenses-table {
+  width: 100%;
+}
+
+th.mat-header-cell {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: var(--soft-text, #6a6d7c);
+}
+
+td.mat-cell {
+  vertical-align: top;
+}
+
+.primary-text {
+  display: block;
+  font-weight: 600;
+}
+
+.secondary-text {
+  color: var(--soft-text, #6a6d7c);
+}
+
+.numeric {
+  text-align: right;
+}
+
+.loading-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(2px);
+}
+
+.error {
+  margin: 1rem;
+  color: var(--danger, #c62828);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  color: var(--soft-text, #6a6d7c);
+}
+
+.empty-state mat-icon {
+  font-size: 2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+}

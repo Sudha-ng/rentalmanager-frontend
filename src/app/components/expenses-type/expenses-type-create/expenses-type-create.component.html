@@ -1,0 +1,31 @@
+<section class="page-header">
+  <div>
+    <p class="eyebrow">New Category</p>
+    <h1>Create Expense Type</h1>
+    <p class="subtitle">Group related expenses for better analytics.</p>
+  </div>
+  <button mat-stroked-button color="primary" routerLink="/expense-types">Back to list</button>
+</section>
+
+<mat-card>
+  <form class="type-form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="typeName" placeholder="e.g., Utilities" />
+      <mat-error *ngIf="form.controls.typeName.hasError('required')">Name is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput rows="3" formControlName="description" placeholder="Optional notes"></textarea>
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-stroked-button type="button" (click)="cancel()" [disabled]="submitting">Cancel</button>
+      <button mat-flat-button color="primary" type="submit" [disabled]="submitting">
+        <mat-icon>save</mat-icon>
+        Save Type
+      </button>
+    </div>
+  </form>
+</mat-card>

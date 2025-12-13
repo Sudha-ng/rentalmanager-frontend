@@ -1,0 +1,63 @@
+<div class="content-column">
+  <section class="page-header">
+    <div>
+      <h1>Expense Types</h1>
+    </div>
+    <button mat-flat-button color="primary" routerLink="/expense-types/create">
+      <mat-icon>add</mat-icon>
+      New Type
+    </button>
+  </section>
+
+  <mat-card class="page-panel">
+    <div class="table-wrapper" *ngIf="expenseTypes.length; else emptyState">
+      <table mat-table [dataSource]="expenseTypes">
+        <ng-container matColumnDef="typeName">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let type">{{ type.typeName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Description</th>
+          <td mat-cell *matCellDef="let type">{{ type.description || '—' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="updatedAt">
+          <th mat-header-cell *matHeaderCellDef>Updated</th>
+          <td mat-cell *matCellDef="let type">
+            {{ type.updatedAt ? (type.updatedAt | date:'medium') : '—' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let type">
+            <button
+              mat-icon-button
+              color="primary"
+              [routerLink]="['/expense-types', type.id, 'edit']"
+              [disabled]="!type.id"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <div class="loading-state" *ngIf="loading">
+      <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+    </div>
+  </mat-card>
+</div>
+
+<ng-template #emptyState>
+  <div class="empty-state" *ngIf="!loading">
+    <mat-icon>category</mat-icon>
+    <p>No expense types yet. Start by adding your first.</p>
+    <button mat-stroked-button color="primary" routerLink="/expense-types/create">Create Type</button>
+  </div>
+</ng-template>

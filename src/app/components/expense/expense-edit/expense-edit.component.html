@@ -1,0 +1,61 @@
+<section class="page-header">
+  <div>
+    <p class="eyebrow">Update Record</p>
+    <h1>Edit Expense</h1>
+    <p class="subtitle">Keep ledger entries accurate and current.</p>
+  </div>
+  <button mat-stroked-button color="primary" routerLink="/expenses">Back to list</button>
+</section>
+
+<mat-card>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="expense-form" novalidate>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <input matInput formControlName="description" />
+      <mat-error *ngIf="form.controls.description.hasError('required')">Description is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Amount (INR)</mat-label>
+      <input matInput type="number" min="0" step="0.01" formControlName="amount" />
+      <mat-error *ngIf="form.controls.amount.hasError('required')">Amount is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Expense Date</mat-label>
+      <input matInput type="date" formControlName="expenseDate" />
+      <mat-error *ngIf="form.controls.expenseDate.hasError('required')">Date is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Expense Type</mat-label>
+      <mat-select formControlName="expenseTypeId">
+        <mat-option *ngFor="let type of expenseTypes" [value]="type.id">{{ type.typeName }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.controls.expenseTypeId.hasError('required')">Select a type.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Property ID</mat-label>
+      <input matInput type="number" min="1" formControlName="propertyId" />
+      <mat-error *ngIf="form.controls.propertyId.hasError('required')">Property is required.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="notes-field">
+      <mat-label>Notes</mat-label>
+      <textarea matInput rows="3" formControlName="notes"></textarea>
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-stroked-button type="button" (click)="cancel()" [disabled]="submitting">Cancel</button>
+      <button mat-flat-button color="primary" type="submit" [disabled]="submitting">
+        <mat-icon>save</mat-icon>
+        Update Expense
+      </button>
+    </div>
+  </form>
+
+  <div class="loading-overlay" *ngIf="loadingExpense || submitting">
+    <mat-progress-spinner mode="indeterminate" diameter="36"></mat-progress-spinner>
+  </div>
+</mat-card>
