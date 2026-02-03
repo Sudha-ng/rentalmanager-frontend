@@ -1,0 +1,74 @@
+<div class="content-column">
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Revenue</p>
+      <h1>Income</h1>
+      <p class="subtitle">Track the inflow tied to each lease so you can reconcile faster.</p>
+    </div>
+    <button mat-flat-button color="primary" type="button" routerLink="/income/create">
+      <mat-icon>payments</mat-icon>
+      Record Income
+    </button>
+  </section>
+
+  <mat-card class="page-panel">
+    <mat-divider class="panel-divider"></mat-divider>
+
+    <div class="table-wrapper" *ngIf="incomes.length; else emptyState">
+      <table mat-table [dataSource]="incomes" class="entity-table">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Record</th>
+          <td mat-cell *matCellDef="let income">
+            <span class="primary-text">Entry #{{ income.id ?? '—' }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="salary">
+          <th mat-header-cell *matHeaderCellDef class="numeric">Amount</th>
+          <td mat-cell *matCellDef="let income" class="numeric">
+            {{ income.salary | currency:'INR':'symbol-narrow' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="actions-cell">Actions</th>
+          <td mat-cell *matCellDef="let income" class="actions-cell">
+            <button
+              mat-icon-button
+              color="primary"
+              [routerLink]="['/income', income.id, 'edit']"
+              [disabled]="!income.id"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <div class="loading-state" *ngIf="loading">
+      <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+    </div>
+    <p class="error" *ngIf="!loading && errorMessage">{{ errorMessage }}</p>
+  </mat-card>
+</div>
+
+<ng-template #emptyState>
+  <ng-container *ngIf="!loading; else loadingBlock">
+    <div class="empty-state">
+      <mat-icon>payments</mat-icon>
+      <p>No income entries yet. Capture your first collection.</p>
+      <button mat-stroked-button color="primary" type="button" routerLink="/income/create">Log Payment</button>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #loadingBlock>
+  <div class="empty-state">
+    <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+    <p>Loading income entries…</p>
+  </div>
+</ng-template>

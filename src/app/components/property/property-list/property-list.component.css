@@ -1,0 +1,15 @@
+.entity-table td.mat-cell {
+  vertical-align: top;
+}
+
+.primary-text {
+  font-size: 0.95rem;
+}
+
+.property-financials .primary-text {
+  font-size: 1rem;
+}
+
+.status-pill {
+  margin-bottom: 0.35rem;
+}

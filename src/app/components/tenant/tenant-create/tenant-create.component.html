@@ -1,0 +1,32 @@
+<div class="content-column">
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Tenant CRM</p>
+      <h1>Create Tenant</h1>
+      <p class="subtitle">Capture renter details before drafting leases.</p>
+    </div>
+    <button mat-stroked-button color="primary" routerLink="/tenant">Back to list</button>
+  </section>
+
+  <mat-card class="form-card">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="entity-form" novalidate>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="e.g., Priya Shah" />
+        <mat-error *ngIf="form.controls.name?.hasError('required')">Name is required.</mat-error>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-stroked-button type="button" (click)="cancel()" [disabled]="submitting">Cancel</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="submitting">
+          <mat-icon>save</mat-icon>
+          Save tenant
+        </button>
+      </div>
+    </form>
+
+    <div class="form-overlay" *ngIf="submitting">
+      <mat-progress-spinner mode="indeterminate" diameter="36"></mat-progress-spinner>
+    </div>
+  </mat-card>
+</div>

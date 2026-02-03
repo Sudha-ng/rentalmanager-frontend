@@ -1,87 +1,298 @@
 :host {
   display: block;
   min-height: 100vh;
-  background: radial-gradient(circle at top, #f4f7fb, #e8ecf5 45%, #e3e8f2 100%);
+  background: #f8fafc;
 }
 
-.app-toolbar {
+/* Top Navigation */
+.top-nav {
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   position: sticky;
   top: 0;
-  z-index: 10;
-  display: flex;
-  gap: 0.75rem;
-  padding-inline: 1.5rem;
+  z-index: 100;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.brand {
+.nav-content {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4f46e5;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  margin-right: 0.5rem;
+}
+
+.menu-toggle:hover {
+  background-color: rgba(79, 70, 229, 0.1);
+}
+
+.menu-toggle mat-icon {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.logo svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.brand-name h1 {
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.brand-name .highlight {
+  color: #4f46e5;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.user-details {
   display: flex;
   flex-direction: column;
-  line-height: 1.1;
+  gap: 0.125rem;
 }
 
-.brand-icon {
-  color: #fff;
-}
-
-.brand-title {
-  font-size: 1.2rem;
+.user-name {
   font-weight: 600;
+  color: #1f2937;
+  font-size: 0.95rem;
 }
 
-.brand-subtitle {
-  font-size: 0.75rem;
-  opacity: 0.85;
+.user-role {
+  font-size: 0.8rem;
+  color: #6b7280;
 }
 
-.spacer {
-  flex: 1;
-}
-
-.tab-nav {
+.logout-btn {
   display: flex;
-  gap: 0.75rem;
-  justify-content: center;
-  margin: clamp(0.5rem, 2vw, 1.5rem) auto 0;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.5rem 1rem;
-  max-width: 640px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
 }
 
-.tab-link {
-  flex: 1;
-  text-align: center;
-  text-decoration: none;
-  font-weight: 600;
-  color: #1f2d46;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 999px;
-  border: 1px solid rgba(18, 74, 177, 0.15);
-  padding: 0.75rem 1rem;
-  box-shadow: 0 8px 20px rgba(8, 19, 60, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, background 0.2s ease;
-}
-
-.tab-link:hover {
+.logout-btn:hover {
+  background: #dc2626;
   transform: translateY(-1px);
-  box-shadow: 0 12px 26px rgba(8, 19, 60, 0.12);
+  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
 }
 
-.active-tab {
-  background: linear-gradient(135deg, #0d47a1, #1976d2);
-  color: #fff;
-  border-color: transparent;
-  box-shadow: 0 14px 30px rgba(15, 54, 125, 0.35);
+.app-layout {
+  position: relative;
+  padding: 0 0 0 260px;
+  transition: padding-left 0.2s ease;
+  min-height: calc(100vh - 64px);
 }
 
-@media (max-width: 600px) {
-  .tab-nav {
-    flex-direction: column;
-    padding-inline: 0.5rem;
-  }
+.side-nav {
+  width: 260px;
+  position: fixed;
+  left: 0;
+  top: 64px;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 1.5rem 1rem;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  min-height: calc(100vh - 64px);
+  z-index: 50;
+}
+
+.side-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.side-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  color: #64748b;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.15s ease;
+}
+
+.side-nav-link mat-icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+  color: #94a3b8;
+}
+
+.side-nav-link:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.side-nav-link:hover mat-icon {
+  color: #1976d2;
+}
+
+.side-nav-link-active {
+  background: #1976d2;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.25);
+}
+
+.side-nav-link-active mat-icon {
+  color: #ffffff;
 }
 
 .app-shell {
-  padding: 2rem clamp(1rem, 4vw, 3rem);
-  max-width: 1200px;
+  padding: 2rem;
+  max-width: 1400px;
   margin: 0 auto;
+}
+
+/* Remove padding for home page */
+.app-shell-home {
+  padding: 0;
+  max-width: 100%;
+}
+
+/* Auth container for login/signup pages */
+.auth-container {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.app-layout-collapsed {
+  padding-left: 80px;
+}
+
+.app-layout-collapsed .side-nav {
+  width: 80px;
+}
+
+.app-layout-collapsed .side-nav-label {
+  display: none;
+}
+
+.app-layout-collapsed .side-nav-link {
+  justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-content {
+    padding: 1rem;
+  }
+
+  .brand-name h1 {
+    font-size: 1.25rem;
+  }
+
+  .user-details {
+    display: none;
+  }
+
+  .logout-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .logout-btn span {
+    display: none;
+  }
+
+  .app-layout {
+    flex-direction: column;
+    padding-inline: 1rem;
+  }
+
+  .side-nav {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand-name h1 {
+    font-size: 1.1rem;
+  }
+
+  .user-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .app-layout {
+    flex-direction: column;
+    padding-inline: 1rem;
+  }
+
+  .side-nav {
+    width: 100%;
+  }
 }
 

@@ -1,0 +1,38 @@
+<div class="content-column">
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Emergency Network</p>
+      <h1>Create Contact</h1>
+      <p class="subtitle">Log escalation details to act quickly when issues arise.</p>
+    </div>
+    <button mat-stroked-button color="primary" routerLink="/emergency-contact">Back to list</button>
+  </section>
+
+  <mat-card class="form-card">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="entity-form" novalidate>
+      <mat-form-field appearance="outline">
+        <mat-label>Tenant ID</mat-label>
+        <input matInput type="number" min="1" formControlName="tenantId" />
+        <mat-hint>Optional link to a tenant record.</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" placeholder="e.g., +91 98234 19823" />
+        <mat-error *ngIf="form.controls.phone?.hasError('required')">Phone is required.</mat-error>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-stroked-button type="button" (click)="cancel()" [disabled]="submitting">Cancel</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="submitting">
+          <mat-icon>save</mat-icon>
+          Save contact
+        </button>
+      </div>
+    </form>
+
+    <div class="form-overlay" *ngIf="submitting">
+      <mat-progress-spinner mode="indeterminate" diameter="36"></mat-progress-spinner>
+    </div>
+  </mat-card>
+</div>

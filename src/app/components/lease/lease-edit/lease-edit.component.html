@@ -1,0 +1,32 @@
+<div class="content-column">
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Contracts</p>
+      <h1>Edit Lease</h1>
+      <p class="subtitle">Refresh lease terms before renewals head out the door.</p>
+    </div>
+    <button mat-stroked-button color="primary" routerLink="/lease">Back to list</button>
+  </section>
+
+  <mat-card class="form-card">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="entity-form" novalidate>
+      <mat-form-field appearance="outline">
+        <mat-label>Lease term (months)</mat-label>
+        <input matInput type="number" min="1" formControlName="leaseMonths" />
+        <mat-error *ngIf="form.controls.leaseMonths?.hasError('required')">Lease term is required.</mat-error>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-stroked-button type="button" (click)="cancel()" [disabled]="submitting">Cancel</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="submitting">
+          <mat-icon>save</mat-icon>
+          Update lease
+        </button>
+      </div>
+    </form>
+
+    <div class="form-overlay" *ngIf="loadingLease || submitting">
+      <mat-progress-spinner mode="indeterminate" diameter="36"></mat-progress-spinner>
+    </div>
+  </mat-card>
+</div>

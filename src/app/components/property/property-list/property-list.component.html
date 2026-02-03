@@ -1,0 +1,109 @@
+<div class="content-column">
+  <section class="page-header">
+    <div>
+      <p class="eyebrow">Portfolio</p>
+      <h1>Properties</h1>
+      <p class="subtitle">Stay close to every asset, valuation, and status update in one glance.</p>
+    </div>
+    <button mat-flat-button color="primary" type="button" routerLink="/property/create">
+      <mat-icon>add_home</mat-icon>
+      Add Property
+    </button>
+  </section>
+
+  <mat-card class="page-panel">
+    <mat-divider class="panel-divider"></mat-divider>
+
+    <div class="table-wrapper" *ngIf="properties.length; else emptyState">
+      <table mat-table [dataSource]="properties" class="entity-table" [trackBy]="trackByPropertyId">
+        <ng-container matColumnDef="ids">
+          <th mat-header-cell *matHeaderCellDef>Records</th>
+          <td mat-cell *matCellDef="let property">
+            <span class="primary-text">Property #{{ property.propertyId ?? property.id }}</span>
+            <small class="secondary-text">Owner #{{ property.userId ?? '—' }}</small>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef>Details</th>
+          <td mat-cell *matCellDef="let property">
+            <span class="primary-text">{{ property.name }}</span>
+            <small class="secondary-text">{{ property.addressLine1 }}</small>
+            <small class="secondary-text" *ngIf="property.addressLine2">{{ property.addressLine2 }}</small>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="location">
+          <th mat-header-cell *matHeaderCellDef>Location</th>
+          <td mat-cell *matCellDef="let property">
+            <span class="primary-text">
+              {{ property.city }}, {{ property.stateProvince }}
+            </span>
+            <small class="secondary-text">{{ property.zipPostalCode }}</small>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="financials">
+          <th mat-header-cell *matHeaderCellDef>Financials</th>
+          <td mat-cell *matCellDef="let property" class="property-financials">
+            <span class="primary-text">
+              {{ property.currentMarketValue | currency:'INR':'symbol-narrow' }}
+            </span>
+            <small class="secondary-text">Purchase: {{ property.purchasePrice | currency:'INR':'symbol-narrow' }}</small>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let property">
+            <span class="status-pill" [ngClass]="property.status === 'active' ? 'status-pill--success' : 'status-pill--neutral'">
+              {{ property.status || '—' }}
+            </span>
+            <small class="secondary-text">
+              Updated {{ property.updatedAt ? (property.updatedAt | date:'mediumDate') : '—' }}
+            </small>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="actions-cell">Actions</th>
+          <td mat-cell *matCellDef="let property" class="actions-cell">
+            <button
+              mat-icon-button
+              color="primary"
+              [routerLink]="['/property', propertyIdentifier(property), 'edit']"
+              [disabled]="!propertyIdentifier(property)"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <div class="loading-state" *ngIf="loading">
+      <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+    </div>
+    <p class="error" *ngIf="!loading && errorMessage">{{ errorMessage }}</p>
+  </mat-card>
+</div>
+
+<ng-template #emptyState>
+  <ng-container *ngIf="!loading; else loadingBlock">
+    <div class="empty-state">
+      <mat-icon>home_work</mat-icon>
+      <p>No properties yet. Start by adding your first asset.</p>
+      <button mat-stroked-button color="primary" type="button" routerLink="/property/create">Plan Property Intake</button>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #loadingBlock>
+  <div class="empty-state">
+    <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+    <p>Loading properties…</p>
+  </div>
+</ng-template>

@@ -1,37 +1,149 @@
-<mat-toolbar color="primary" class="app-toolbar" role="navigation">
-  <button mat-icon-button class="brand-icon" aria-label="RentalManager home" routerLink="/">
-  </button>
-  <div class="brand">
-    <span class="brand-title">RentalManager</span>
+<header class="top-nav" *ngIf="!isAuthPage && isAuthenticated">
+  <div class="nav-content">
+    <div class="logo-section">
+      <button
+        class="menu-toggle"
+        type="button"
+        (click)="toggleSidebar()"
+        [attr.aria-label]="isSidebarCollapsed ? 'Expand navigation' : 'Collapse navigation'"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <div class="logo">
+        <svg width="40" height="40" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M25 5L5 20H10V42H20V30H30V42H40V20H45L25 5Z" fill="#4F46E5"/>
+          <path d="M20 30H30V42H20V30Z" fill="#6366F1"/>
+        </svg>
+      </div>
+      <div class="brand-name">
+        <h1>Rental<span class="highlight">Manager</span></h1>
+      </div>
+    </div>
+
+    <div class="user-section" *ngIf="currentUser">
+      <div class="user-info">
+        <div class="user-avatar">{{ getUserInitials() }}</div>
+        <div class="user-details">
+          <span class="user-name">{{ getUserFullName() }}</span>
+          <span class="user-role">{{ getRoleDisplay() }}</span>
+        </div>
+      </div>
+      <button class="logout-btn" (click)="logout()" title="Logout">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 3H16C16.5304 3 17.0391 3.21071 17.4142 3.58579C17.7893 3.96086 18 4.46957 18 5V15C18 15.5304 17.7893 16.0391 17.4142 16.4142C17.0391 16.7893 16.5304 17 16 17H13M7 13L3 9M3 9L7 5M3 9H13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Logout
+      </button>
+    </div>
   </div>
+</header>
 
-  <span class="spacer"></span>
-</mat-toolbar>
-
-<nav class="tab-nav" role="tablist">
-  <a
-    class="tab-link"
-    routerLink="/expenses"
-    routerLinkActive="active-tab"
-    #expensesTab="routerLinkActive"
-    [routerLinkActiveOptions]="{ exact: true }"
-    role="tab"
-    [attr.aria-selected]="expensesTab.isActive"
-  >
-    Expenses
-  </a>
-  <a
-    class="tab-link"
-    routerLink="/expense-types"
-    routerLinkActive="active-tab"
-    #expenseTypesTab="routerLinkActive"
-    role="tab"
-    [attr.aria-selected]="expenseTypesTab.isActive"
-  >
-    Expense Types
-  </a>
-</nav>
-
-<main class="app-shell">
+<div class="auth-container" *ngIf="isAuthPage">
   <router-outlet></router-outlet>
+</div>
+
+<main class="app-layout" [class.app-layout-collapsed]="isSidebarCollapsed" *ngIf="!isAuthPage && isAuthenticated">
+  <aside class="side-nav" aria-label="Main sections">
+    <nav class="side-nav-list">
+      <a
+        class="side-nav-link"
+        routerLink="/home"
+        routerLinkActive="side-nav-link-active"
+        #homeTab="routerLinkActive"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [attr.aria-current]="homeTab.isActive ? 'page' : null"
+      >
+        <mat-icon>dashboard</mat-icon>
+        <span class="side-nav-label">Dashboard</span>
+      </a>
+
+      <a
+        class="side-nav-link"
+        routerLink="/property"
+        routerLinkActive="side-nav-link-active"
+        #propertyTab="routerLinkActive"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [attr.aria-current]="propertyTab.isActive ? 'page' : null"
+      >
+        <mat-icon>home</mat-icon>
+        <span class="side-nav-label">Property</span>
+      </a>
+
+      <a
+        class="side-nav-link"
+        routerLink="/income"
+        routerLinkActive="side-nav-link-active"
+        #incomeTab="routerLinkActive"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [attr.aria-current]="incomeTab.isActive ? 'page' : null"
+      >
+        <mat-icon>trending_up</mat-icon>
+        <span class="side-nav-label">Income</span>
+      </a>
+
+      <a
+        class="side-nav-link"
+        routerLink="/expenses"
+        routerLinkActive="side-nav-link-active"
+        #expensesTab="routerLinkActive"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [attr.aria-current]="expensesTab.isActive ? 'page' : null"
+      >
+        <mat-icon>receipt_long</mat-icon>
+        <span class="side-nav-label">Expenses</span>
+      </a>
+
+      <a
+        class="side-nav-link"
+        routerLink="/expense-types"
+        routerLinkActive="side-nav-link-active"
+        #expenseTypesTab="routerLinkActive"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [attr.aria-current]="expenseTypesTab.isActive ? 'page' : null"
+      >
+        <mat-icon>category</mat-icon>
+        <span class="side-nav-label">Expense Types</span>
+      </a>
+
+      <a
+        class="side-nav-link"
+        routerLink="/lease"
+        routerLinkActive="side-nav-link-active"
+        #leaseTab="routerLinkActive"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [attr.aria-current]="leaseTab.isActive ? 'page' : null"
+      >
+        <mat-icon>description</mat-icon>
+        <span class="side-nav-label">Lease</span>
+      </a>
+
+      <a
+        class="side-nav-link"
+        routerLink="/tenant"
+        routerLinkActive="side-nav-link-active"
+        #tenantTab="routerLinkActive"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [attr.aria-current]="tenantTab.isActive ? 'page' : null"
+      >
+        <mat-icon>people</mat-icon>
+        <span class="side-nav-label">Tenant</span>
+      </a>
+
+      <a
+        class="side-nav-link"
+        routerLink="/emergency-contact"
+        routerLinkActive="side-nav-link-active"
+        #emergencyTab="routerLinkActive"
+        [routerLinkActiveOptions]="{ exact: true }"
+        [attr.aria-current]="emergencyTab.isActive ? 'page' : null"
+      >
+        <mat-icon>contact_phone</mat-icon>
+        <span class="side-nav-label">Emergency Contact</span>
+      </a>
+    </nav>
+  </aside>
+
+  <section class="app-shell" [class.app-shell-home]="isHomePage">
+    <router-outlet></router-outlet>
+  </section>
 </main>
